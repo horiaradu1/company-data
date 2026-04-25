@@ -5,6 +5,10 @@ from bs4 import BeautifulSoup, Comment
 from concurrent.futures import ThreadPoolExecutor
 from collections import Counter
 
+# TODO: Ideas
+# - Check contact pages ("/contact", "/contact-us", "/about") ?
+# - 
+
 def clean_domain(url: str) -> str:
     url = re.sub(r'^https?://', '', url.strip())
     url = re.sub(r'^www\.', '', url)
@@ -25,16 +29,24 @@ def clean_soup(soup: BeautifulSoup) -> BeautifulSoup:
 
     return soup
 
+def extract_phone_numbers(soup: BeautifulSoup) -> list:
+    phone_numbers = []
+    return phone_numbers
+
+def extract_social_media_links(soup: BeautifulSoup) -> list:
+    social_media_links = []
+    return social_media_links
+
+def extract_addresses(soup: BeautifulSoup) -> list:
+    addresses = []
+    return addresses
+
 def extract_website_data(response_soup: BeautifulSoup) -> tuple:
     """Return: (phone_numbers, social_media_links, addresses)."""
-    # TODO: Implement scraping logic
-
-    
-
     return (
-        [], # phone numbers
-        [], # social media links
-        []  # address / location
+        extract_phone_numbers(response_soup),
+        extract_social_media_links(response_soup),
+        extract_addresses(response_soup)
     )
 
 def process_website(website: str) -> tuple[str, int, list, list, list]:
@@ -100,7 +112,7 @@ if __name__ == "__main__":
     print(f"Unique websites: {len(websites)}")
 
     # Randomly sample 10 websites for testing
-    # TODO: Remove in prod
+    # TODO: Remove
     import random
     random.seed(1234)
     random.shuffle(websites)
